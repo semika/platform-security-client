@@ -6,30 +6,19 @@ import iit.ase.cw.authenticator.ThaproReactiveSecurityContextRepository;
 import iit.ase.cw.platform.common.security.constant.ThaproSecurityConstant;
 import iit.ase.cw.service.ThaproUserDetailsPopulateService;
 
+import iit.ase.cw.service.UserDetailPopulateService;
 import iit.ase.cw.util.ThaproJwtTokenHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConditionalOnProperty(value = ThaproSecurityConstant.Security.SECURITY_CLIENT_ENABLED, havingValue = "true")
 public class ThaproReactiveSecurityAutoConfiguration {
-
-    @Bean
-    public ThaproReactiveSecurityContextRepository thaproReactiveSecurityContextRepository() {
-        return new ThaproReactiveSecurityContextRepository();
-    }
 
     @Bean
     public ThaproJwtTokenHandler jwtUtil() {
         return new ThaproJwtTokenHandler();
-    }
-
-    @Bean
-    public ClientReactiveSecurityConfiguration securityConfiguration(
-        ThaproUserDetailsPopulateService thaproUserDetailsPopulateService,
-        ThaproReactiveSecurityContextRepository thaproReactiveSecurityContextRepository) {
-        return new ClientReactiveSecurityConfiguration(thaproUserDetailsPopulateService, thaproReactiveSecurityContextRepository);
     }
 
     @Bean
@@ -45,5 +34,4 @@ public class ThaproReactiveSecurityAutoConfiguration {
         ThaproUserDetailsPopulateService thaproUserDetailsPopulateService, ThaproJwtTokenHandler jwtUtil) {
         return new ThaproReactiveJWTUserAuthenticator(thaproUserDetailsPopulateService, jwtUtil);
     }
-
 }

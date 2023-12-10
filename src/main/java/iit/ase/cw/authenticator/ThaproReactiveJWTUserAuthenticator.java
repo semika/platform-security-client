@@ -55,7 +55,7 @@ public class ThaproReactiveJWTUserAuthenticator implements ThaproReactiveUserAut
             AuthenticationRequest authenticationRequest = jwtUtil.extractClientToken(jwt);
 
             //Load the user and role from the database.
-            ThaproUser thaproUser = thaproUserDetailsPopulateService.findByUsername(authenticationRequest);
+            ThaproUser thaproUser = thaproUserDetailsPopulateService.findByUsername(authenticationRequest.getUsername());
             if (thaproUser == null) {
                 throw new RuntimeException("Authentication error. Unable to find the user");
             }
@@ -72,8 +72,6 @@ public class ThaproReactiveJWTUserAuthenticator implements ThaproReactiveUserAut
                 .userSecret(thaproUser.getPassword()).build();
 
             //populate security context holder
-            //Authentication authenticated  = new UsernamePasswordAuthenticationToken(
-            //    thaproUser.getUserId(), thaproUser.getPassword(), userDetails.getAuthorities());
             securityContext.setAuthentication(authenticated);
 
             //create new JWT token and set JWT header for downstream services.

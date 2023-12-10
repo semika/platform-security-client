@@ -56,7 +56,7 @@ public class ThaproReactiveBasicUserAuthenticator implements ThaproReactiveUserA
             authenticationRequest.getPassword());
 
         //Load the user and role from the database.
-        ThaproUser thaproUser = thaproUserDetailsPopulateService.findByUsername(authenticationRequest);
+        ThaproUser thaproUser = thaproUserDetailsPopulateService.findByUsername(authenticationRequest.getUsername());
         if (thaproUser == null) {
             throw new RuntimeException("Authentication error. Unable to find the user");
         }

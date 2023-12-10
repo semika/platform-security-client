@@ -7,5 +7,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ThaproUserDetailsPopulateService {
 
-     ThaproUser findByUsername(AuthenticationRequest username);
+     ThaproUser findByUsername(String username);
 }
